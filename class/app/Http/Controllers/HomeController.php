@@ -7,6 +7,9 @@ use App\Models\Lecture;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use function PHPUnit\Framework\isEmpty;
 
 class HomeController extends Controller
 {
@@ -36,7 +39,10 @@ class HomeController extends Controller
         return view('students',compact('students'));
     }
     public function student($id){
-        $classes=User::with(['classes'])->get();
+        $choose=DB::table('lecture_user')->where('user_id','like', '%'.$id.'%')->get();
+//        foreach ($choose as $ch)
+//        dd($ch);
+        $classes=Lecture::all();
         $student=User::findOrFail($id);
         return view('student',compact('student','classes'));
     }
@@ -57,20 +63,15 @@ class HomeController extends Controller
         return view('my_classes',compact('student'));
     }
 
-    public function change_class(Lecture $lecture){
-        $students=User::with(['classes'])->get();
-        foreach ($students as $class){
-            $class1 = $class->classes;
-            if ($class1->id == $lecture){
-                $class1->id=false;
-            }else{
-                $class1->id=$lecture;
-            }
+    public function change_class(Request $request,$id){
+        $choose=DB::table('lecture_user')->where('user_id','like', '%'.$id.'%')->get();
+        $students=User::findOrFail($id);
+        if ($students->classes()->detach($request->classes)==true){
+            $students->classes()->detach($request->classes);
+        }else{
+            $students->classes()->attach($request->classes);
         }
-////        $student=new User($request->all());
-////        $student-save();
-////        $student->classes()->attach($request->classes);
-         $class-save();
+
         return redirect()->back();
     }
 

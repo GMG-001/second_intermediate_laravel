@@ -26,7 +26,7 @@ Route::get('/students/{id}', [App\Http\Controllers\HomeController::class, 'stude
 Route::get('/classes', [App\Http\Controllers\HomeController::class, 'classes'])->name('classes');
 Route::get('/classes/{id}', [App\Http\Controllers\HomeController::class, 'class'])->name('class');
 Route::get('/my_classes', [App\Http\Controllers\HomeController::class, 'my_classes'])->name('my_classes');
-Route::post('/students/{lecture}/change', [\App\Http\Controllers\HomeController::class, 'change_class'])->name('change_class');
+Route::post('/students/{id}/change/', [App\Http\Controllers\HomeController::class, 'change_class'])->name('change_class');
 
 Route::get('/create_class', [App\Http\Controllers\HomeController::class, 'create_class'])->name('create_class');
 Route::post('create_class/save', [App\Http\Controllers\HomeController::class, 'save'])->name('create_class.save');
