@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     use HasFactory;
+
     public function questions(){
-        return $this->hasMany(Question::class);
+        return $this->belongsToMany(Question::class);
     }
 }

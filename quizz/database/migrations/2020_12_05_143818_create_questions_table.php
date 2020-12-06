@@ -20,6 +20,9 @@ class CreateQuestionsTable extends Migration
             $table->integer('answer_2');
             $table->integer('answer_3');
             $table->integer('answer_4');
+            $table->boolean('is_correct');
+            $table->timestamps();
+
         });
     }
 

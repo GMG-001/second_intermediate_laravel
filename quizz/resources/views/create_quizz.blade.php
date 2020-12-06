@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1"></label>
-                <input type="text" class="bg-gray-700 rounded-full w-64 px-4 py-1" placeholder="answer_id" name="answer_id">
+                <input type="text" class="bg-gray-700 rounded-full w-64 px-4 py-1" placeholder="answer" name="is_correct">
             </div>
         </div>
         <input type="hidden" name="_token" id="csrf_token" value="{{csrf_token()}}">
