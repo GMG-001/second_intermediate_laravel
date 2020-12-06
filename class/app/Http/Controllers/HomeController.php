@@ -39,9 +39,6 @@ class HomeController extends Controller
         return view('students',compact('students'));
     }
     public function student($id){
-        $choose=DB::table('lecture_user')->where('user_id','like', '%'.$id.'%')->get();
-//        foreach ($choose as $ch)
-//        dd($ch);
         $classes=Lecture::all();
         $student=User::findOrFail($id);
         return view('student',compact('student','classes'));
@@ -64,7 +61,6 @@ class HomeController extends Controller
     }
 
     public function change_class(Request $request,$id){
-        $choose=DB::table('lecture_user')->where('user_id','like', '%'.$id.'%')->get();
         $students=User::findOrFail($id);
         if ($students->classes()->detach($request->classes)==true){
             $students->classes()->detach($request->classes);
