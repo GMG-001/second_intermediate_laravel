@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 
 class HomeController extends Controller
 {
@@ -49,6 +50,22 @@ class HomeController extends Controller
         return redirect()->back();
     }
     public function check_quizz(Request $request){
-        return redirect()->back();
+        $p=0;
+        $question=Question::all();
+        foreach($question as $quizz){
+        if (isset($request['q1'])){
+            $q1=$request['q1'];
+        }else{
+            $q1=Null;
+        }
+        if ($q1!=Null){
+            if ($q1!=$quizz->is_correct){
+                $p+=0;
+            }else{
+                $p+=1;
+            }
+        }
+        }
+        return view('result',compact('p'));
     }
 }
