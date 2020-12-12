@@ -6,7 +6,6 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\Types\Null_;
 
 class HomeController extends Controller
 {
@@ -27,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $quizzes=Question::with(['answers'])->get();
+        $questions = new Question();
+        $quizzes = $questions->questions();
         $user=Auth::user();
         return view('quizz',compact('user','quizzes'));
     }
@@ -36,6 +36,7 @@ class HomeController extends Controller
         return view('create_quizz',compact('answers'));
     }
     public function save_quizz(Request $request){
+//        public function save_quizz(QuestionsRequest $questionsRequest){
         $request->validate([
             'question'=>'required',
             'answer_1'=>'required',
@@ -46,26 +47,19 @@ class HomeController extends Controller
         ]);
         $quizz=new Question($request->all());
         $quizz->save();
-//        $quizz->answers()->attach($request->correct_answer);
         return redirect()->back();
     }
     public function check_quizz(Request $request){
-        $p=0;
-        $question=Question::all();
-        foreach($question as $quizz){
-        if (isset($request['q1'])){
-            $q1=$request['q1'];
-        }else{
-            $q1=Null;
+        $p = 0;
+        $questions = new Question();
+        $correct_answers = $questions->questions();
+        $t = count($correct_answers);
+
+        for ($i = 0; $i < $t; $i++) {
+            $submited_data = $request['q1'][$i + 1];
+            if ($correct_answers[$i]["is_correct"] == $submited_data)
+                $p++;
         }
-        if ($q1!=Null){
-            if ($q1!=$quizz->is_correct){
-                $p+=0;
-            }else{
-                $p+=1;
-            }
-        }
-        }
-        return view('result',compact('p'));
+        return view('result', compact('p', 't'));
     }
 }

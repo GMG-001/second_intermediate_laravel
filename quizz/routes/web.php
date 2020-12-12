@@ -23,6 +23,6 @@ Auth::routes();
 Route::get('/quizz', [App\Http\Controllers\HomeController::class, 'index'])->name('quizz');
 Route::get('/create_quizz', [App\Http\Controllers\HomeController::class, 'create_quizz'])->name('create_quizz');
 Route::post('/save_quizz', [App\Http\Controllers\HomeController::class, 'save_quizz'])->name('save_quizz');
-Route::post('/check_quizz', [App\Http\Controllers\HomeController::class, 'check_quizz'])->name('check_quizz');
+Route::post('/results', [App\Http\Controllers\HomeController::class, 'check_quizz'])->name('check_quizz');
 
 

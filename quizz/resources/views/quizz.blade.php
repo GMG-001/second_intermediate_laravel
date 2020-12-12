@@ -13,21 +13,34 @@
                         <div>
                             @foreach($quizzes as $quizz)
                                 <br><p>{{$quizz->question}}</p>
-                                <p><input type="radio" name="q1" value="{{$quizz->answer_1}}">A. {{$quizz->answer_1}}</p>
-                                <p><input type="radio" name="q1" value="{{$quizz->answer_2}}">B. {{$quizz->answer_2}}</p>
-                                <p><input type="radio" name="q1" value="{{$quizz->answer_3}}">C. {{$quizz->answer_3}}</p>
-                                <p><input type="radio" name="q1" value="{{$quizz->answer_4}}">D. {{$quizz->answer_4}}</p>
-{{--                                <input type="hidden" name="a1" id="{{$quizz->is_correct}}" value="{{$quizz->is_correct}}"><br><br>--}}
-                                    @endforeach
+                                <p>
+                                    <input type="radio" name="q1[{{$quizz->id}}]"  value="{{$quizz->answer_1}}" id="{{$quizz->answer_1}}">
+                                    <label for="{{$quizz->answer_1}}">A. {{$quizz->answer_1}}</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="q1[{{$quizz->id}}]"  value="{{$quizz->answer_2}}" id="{{$quizz->answer_2}}">
+                                    <label for="{{$quizz->answer_2}}">B. {{$quizz->answer_2}}</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="q1[{{$quizz->id}}]"  value="{{$quizz->answer_3}}" id="{{$quizz->answer_3}}">
+                                    <label for="{{$quizz->answer_3}}">C. {{$quizz->answer_3}}</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="q1[{{$quizz->id}}]"  value="{{$quizz->answer_4}}" id="{{$quizz->answer_4}}">
+                                    <label for="{{$quizz->answer_4}}">D. {{$quizz->answer_4}}</label>
+                                </p>
 
+                            @endforeach
                         </div>
                         <input type="hidden" name="_token" id="csrf_token" value="{{csrf_token()}}">
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
-                @endif
+
             </div>
+
+                @endif
         </div>
     </div>
 @endsection

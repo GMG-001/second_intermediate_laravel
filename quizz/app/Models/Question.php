@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Question extends Model
 {
@@ -12,5 +13,8 @@ class Question extends Model
 
     public function answers(){
         return $this->belongsToMany(Answer::class);
+    }
+    public function questions(){
+        return DB::table('questions')->get();
     }
 }
